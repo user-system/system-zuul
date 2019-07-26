@@ -1,0 +1,27 @@
+zuul:
+  routes:
+    login:
+      path: /login
+      serviceId: login
+  prefix: /ldApi
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://ld:admin@localhost:40000/eureka/
+  instance:
+    hostname: ${spring.cloud.client.ip-address}
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    ip-address: true
+logging:
+  file:  target/${spring.application.name}.log
+  level:
+    com:
+      gm: debug
+    root: info
+spring:
+  zipkin:
+    enabled: true
+    base-url: http://localhost:40100/
+  sleuth:
+    sampler:
+      probability: 1.0 #0.1-1.0 也就是代表链路跟踪的数据上传的概率有多大
